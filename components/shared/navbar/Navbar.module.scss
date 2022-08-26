@@ -1,0 +1,21 @@
+.Navbar {
+  background-color: var(--secondary);
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  padding: 2.5rem 2rem;
+  & ul {
+    display: flex;
+    justify-content: space-between;
+    & li {
+      display: inline;
+      cursor: pointer;
+      &:hover {
+        color: var(--contrast1);
+      }
+    }
+  }
+}
+
+.isActive {
+  color: var(--contrast1);
+}

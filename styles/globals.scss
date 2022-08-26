@@ -2,12 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary: #120f54;
+  --secondary: #370397;
+  --contrast1: #00ff66;
+  --contrast2: #2851e3;
+  --white: #ffffff;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: var(--primary);
+  color: white;
 }
 
 a {
