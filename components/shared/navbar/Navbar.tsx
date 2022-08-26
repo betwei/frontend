@@ -1,3 +1,4 @@
+import Button from "../buttons/Button";
 import styles from "./Navbar.module.scss";
 
 export default function Navbar() {
@@ -10,7 +11,7 @@ export default function Navbar() {
         <li>Acerca de</li>
         <li>Faq</li>
       </ul>
-      <button>HERE BUTTON</button>
+      <Button>Iniciar ahora</Button>
     </div>
   );
 }

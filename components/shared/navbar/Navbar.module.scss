@@ -3,6 +3,9 @@
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   padding: 2.5rem 2rem;
+  & Button {
+    justify-self: flex-end;
+  }
   & ul {
     display: flex;
     justify-content: space-between;
