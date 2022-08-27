@@ -5,7 +5,7 @@ import sylesWrapper from "../../styles/_Wrapper.module.scss";
 
 function Hero() {
   return (
-    <section className={(styles.hero, sylesWrapper.wrapper)}>
+    <section className={`${styles.hero} ${sylesWrapper.wrapper}`}>
       <div className={styles.hero_info}>
         <h3>Tú origanizas, Tú ganas</h3>
         <h1>BetWei</h1>

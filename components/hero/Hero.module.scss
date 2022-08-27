@@ -1,5 +1,8 @@
 .hero {
   padding-block: 5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   &_info {
     display: flex;
     flex-direction: column;
