@@ -1,0 +1,23 @@
+.gameOverview {
+  display: flex;
+  justify-content: center;
+  gap: 3.75rem;
+  flex-direction: column;
+  &_header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+  }
+  &_title {
+    font-weight: bold;
+  }
+  &_subtitle {
+    color: var(--contrast1);
+  }
+  &_gameList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
