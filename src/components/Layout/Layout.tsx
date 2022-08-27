@@ -18,7 +18,9 @@ export default function Home({ children }: any) {
 
       <main className={styles.main}>
         <Navbar></Navbar>
-        {children}
+        <div className={sylesWrapper.wrapper}>
+          {children}
+        </div>
       </main>
 
       <footer className={styles.footer}>

@@ -41,7 +41,7 @@ export default function Navbar() {
           <Link href='/#game-over'>Partidos</Link>
         </li>
         <li>
-          <Link href='#'>Acerca de</Link>
+          <Link href='#about'>Acerca de</Link>
         </li>
         <li>
           <Link href='#'>Faq</Link>
