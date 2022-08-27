@@ -1,0 +1,45 @@
+.Navbar {
+  position: fixed;
+  width: 100%;
+  background-color: var(--secondary);
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  padding: 2rem 2rem;
+  align-items: center;
+  top: 0;
+  left: 0;
+  & Button {
+    justify-self: flex-end;
+  }
+  & ul {
+    display: flex;
+    justify-content: space-between;
+    & li {
+      display: inline;
+      cursor: pointer;
+      &:hover {
+        color: var(--contrast1);
+      }
+    }
+  }
+
+}
+
+.account {
+  width: 150px;
+  padding: 5px;
+  border-radius: 20px;
+  background-color: var(--primary);
+  display: flex;
+  justify-content: space-between;
+  right: 30px;
+  position: absolute;
+
+  span {
+    width: 120px;
+  }
+}
+
+.isActive {
+  color: var(--contrast1);
+}
