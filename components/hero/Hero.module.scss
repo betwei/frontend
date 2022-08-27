@@ -1,0 +1,15 @@
+.hero {
+  padding-block: 5rem;
+  &_info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    & h3 {
+      color: var(--contrast1);
+      font-style: italic;
+    }
+    & h1 {
+      font-weight: bold;
+    }
+  }
+}

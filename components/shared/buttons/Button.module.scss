@@ -1,0 +1,13 @@
+.button {
+  padding: 0.5rem 1.5rem;
+  background-color: var(--contrast2);
+  border-radius: 0.25rem;
+  inline-size: fit-content;
+  font-weight: 500;
+  will-change: transform, background;
+  transition: transform 0.2s ease-in-out, background 0.2s ease-in-out;
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
