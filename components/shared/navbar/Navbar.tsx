@@ -1,10 +1,11 @@
 import Button from "../buttons/Button";
 import styles from "./Navbar.module.scss";
+import Logo from "../logo/Logo";
 
 export default function Navbar() {
   return (
     <div className={styles.Navbar}>
-      <p>HERE LOGO</p>
+      <Logo></Logo>
       <ul>
         <li>Inicio</li>
         <li>Partidos</li>
