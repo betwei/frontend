@@ -2,6 +2,7 @@ import React from "react";
 import stylesWrapper from "../../styles/_Wrapper.module.scss";
 import styles from "./GameOverview.module.scss";
 import GameCard from "../shared/game-card/GameCard";
+import { generatePlayersMock } from "../../mocks/teamPlayers.mock";
 
 function GameOverview() {
   return (
@@ -13,8 +14,8 @@ function GameOverview() {
         </p>
       </div>
       <div className={styles.gameOverview_gameList}>
-        {Array.from(Array(6).keys()).map((item) => (
-          <GameCard key={item}></GameCard>
+        {generatePlayersMock(6).map((item, index) => (
+          <GameCard {...item} key={index}></GameCard>
         ))}
       </div>
     </div>
