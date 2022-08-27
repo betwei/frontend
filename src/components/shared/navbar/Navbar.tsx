@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from 'react'
+import Link from 'next/link'
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 
 // Components
@@ -33,10 +34,18 @@ export default function Navbar() {
     <div className={styles.Navbar}>
       <Logo></Logo>
       <ul>
-        <li>Inicio</li>
-        <li>Partidos</li>
-        <li>Acerca de</li>
-        <li>Faq</li>
+        <li>
+          <Link href='/#hero'>Inicio</Link>
+        </li>
+        <li>
+          <Link href='/#game-over'>Partidos</Link>
+        </li>
+        <li>
+          <Link href='#'>Acerca de</Link>
+        </li>
+        <li>
+          <Link href='#'>Faq</Link>
+        </li>
       </ul>
       {active
         ? <div className={styles.account}>

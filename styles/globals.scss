@@ -44,6 +44,10 @@ h3 {
   font-size: var(--h3);
 }
 
+.active {
+  color: var(--contrast1)
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
