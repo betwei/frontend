@@ -2,12 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+// Colors
 :root {
   --primary: #120f54;
   --secondary: #370397;
   --contrast1: #00ff66;
   --contrast2: #2851e3;
   --white: #ffffff;
+}
+
+// Fonts
+:root {
+  --h1: 3.5rem;
+  --h3: 2rem;
 }
 
 html,
@@ -27,6 +34,14 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+h1 {
+  font-size: var(--h1);
+}
+
+h3 {
+  font-size: var(--h3);
 }
 
 @media (prefers-color-scheme: dark) {
