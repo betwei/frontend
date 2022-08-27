@@ -1,6 +1,7 @@
 import React from "react";
 import stylesWrapper from "../../styles/_Wrapper.module.scss";
 import styles from "./GameOverview.module.scss";
+import GameCard from "../shared/game-card/GameCard";
 
 function GameOverview() {
   return (
@@ -12,12 +13,9 @@ function GameOverview() {
         </p>
       </div>
       <div className={styles.gameOverview_gameList}>
-        <div>HERE_GAME_CARD</div>
-        <div>HERE_GAME_CARD</div>
-        <div>HERE_GAME_CARD</div>
-        <div>HERE_GAME_CARD</div>
-        <div>HERE_GAME_CARD</div>
-        <div>HERE_GAME_CARD</div>
+        {Array.from(Array(6).keys()).map((item) => (
+          <GameCard key={item}></GameCard>
+        ))}
       </div>
     </div>
   );

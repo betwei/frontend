@@ -1,0 +1,28 @@
+.gameCard {
+  background-color: var(--secondary);
+  padding: 1rem;
+  border-radius: 0.75rem;
+  &_content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  &_players {
+    display: flex;
+    justify-content: space-between;
+  }
+  &_button {
+    display: flex;
+    justify-content: center;
+  }
+}
+hr.contrast {
+  border: 0;
+  padding: 0.25px;
+  color: var(--contrast1);
+  background-color: var(--contrast1);
+}
+
+.contrast {
+  color: var(--contrast1);
+}
