@@ -1,4 +1,4 @@
-import { ICardOverview } from "../interfaces/gameOverview.interface";
+import { ICardOverview } from "../src/interfaces/gameOverview.interface";
 
 const TEAM_PLAYERS_MOCK: ICardOverview = {
   buttonTitle: "Apostar ya",

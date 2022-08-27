@@ -1,8 +1,8 @@
 import React from "react";
-import stylesWrapper from "../../styles/_Wrapper.module.scss";
+import stylesWrapper from "../../../styles/_Wrapper.module.scss";
 import styles from "./GameOverview.module.scss";
 import GameCard from "../shared/game-card/GameCard";
-import { generatePlayersMock } from "../../mocks/teamPlayers.mock";
+import { generatePlayersMock } from "../../../mocks/teamPlayers.mock";
 
 function GameOverview() {
   return (
