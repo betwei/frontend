@@ -26,21 +26,6 @@
 
 }
 
-.account {
-  width: 150px;
-  padding: 5px;
-  border-radius: 20px;
-  background-color: var(--primary);
-  display: flex;
-  justify-content: space-between;
-  right: 30px;
-  position: absolute;
-
-  span {
-    width: 120px;
-  }
-}
-
 .isActive {
   color: var(--contrast1);
 }

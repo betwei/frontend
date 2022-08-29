@@ -1,0 +1,10 @@
+.closeBtn {
+  position: absolute;
+  top: 21px;
+  right: 10px;
+  cursor: pointer;
+  color: var(--primary);
+  &:hover {
+    color: var(--secondary);
+  }
+}
