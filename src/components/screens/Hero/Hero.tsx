@@ -21,7 +21,7 @@ function Hero() {
   })
 
   const getData = useCallback(async () => {
-    if (contract) setRandom(await contract.methods.s_randomWords(1).call())
+    // if (contract) setRandom(await contract.methods.playerGames().call())
   }, [contract])
 
   useEffect(() => {

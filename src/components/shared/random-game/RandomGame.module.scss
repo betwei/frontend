@@ -1,0 +1,36 @@
+.random_game {
+  display: grid;
+  grid-template-columns: 50% 50%;
+
+  &__info {
+    span {
+      display: block;
+      b {
+        color: var(--contrast1);
+      }
+    }
+  }
+
+  &__qr {
+    span, a, i {
+      display: block;
+    }
+
+    a, i {
+      color: var(--white);
+      text-decoration: underline;
+      font-weight: bold;
+      cursor: pointer;
+      &:hover {
+        color: var(--contrast1);
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 20px;
+  }
+}

@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react'
 import Link from 'next/link'
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
+import { useRouter } from 'next/router'
 
 // Components
 import Button from '../buttons/Button'
@@ -13,6 +14,7 @@ import { connector } from '../../../config/web3'
 import styles from './Navbar.module.scss'
 
 export default function Navbar() {
+  const router = useRouter()
   const { active, activate, error } = useWeb3React()
   const isUnsupportedChain = error instanceof UnsupportedChainIdError
 
@@ -25,28 +27,35 @@ export default function Navbar() {
     if (localStorage.getItem('previouslyConnected') === 'true') connect()
   }, [connect])
 
+  const isActive = (path: string | string[]) => {
+    if ((typeof path === 'string' ? [path] : path).find(p => p === router.asPath))
+      return { className: 'active' }
+  }
+
   return (
-    <div className={styles.Navbar}>
-      <Logo></Logo>
+    <div className={`${styles.Navbar} drop-shadow-md`}>
+      <Logo />
       <ul>
-        <li>
+        <li {...isActive(['/#hero', '/'])}>
           <Link href='/#hero'>Inicio</Link>
         </li>
-        <li>
+        <li {...isActive('/#game-over')}>
           <Link href='/#game-over'>Partidos</Link>
         </li>
-        <li>
-          <Link href='#about'>Acerca de</Link>
+        <li {...isActive('/#about')}>
+          <Link href='/#about'>Acerca de</Link>
         </li>
-        <li>
-          <Link href='#'>Faq</Link>
-        </li>
+        {active && <>
+          <li {...isActive('/play')}>
+            <Link href='/play'>Jugar</Link>
+          </li>
+        </>}
       </ul>
       {active
         ? <Address />
         : <Button onClick={connect}>
-            {isUnsupportedChain ? 'Red no soportada' : 'Conectar Wallet'}
-          </Button>
+          {isUnsupportedChain ? 'Red no soportada' : 'Conectar Wallet'}
+        </Button>
       }
     </div>
   )

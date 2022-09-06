@@ -1,0 +1,38 @@
+.input {
+  div {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    height: 29px;
+    background: var(--primary);
+    font-size:16px;
+    border-radius: 10px;
+    cursor: text;
+    b {
+      max-width: 100%;
+      color: transparent;
+      position: absolute;
+      overflow: hidden;
+      z-index: 0;
+    }
+    input {
+      background: transparent;
+      font-weight: bold;
+      outline: none;
+      z-index: 1;
+    }
+    input::-webkit-inner-spin-button,
+    input::-webkit-calendar-picker-indicator {
+      display: none;
+      -webkit-appearance: none;
+    }
+    span {
+      display: flex;
+      align-items: center;
+    }
+  }
+  i {
+    color: var(--contrast1);
+  }
+}

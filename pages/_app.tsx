@@ -3,6 +3,7 @@ import { AppProps } from 'next/app'
 
 // Components
 import Layout from '../src/components/Layout/Layout'
+import Loader from '../src/components/shared/loader/Loader'
 import Modal from '../src/components/shared/modal/Modal'
 
 // Web3 connection
@@ -20,6 +21,7 @@ function App({ Component, pageProps }: AppProps) {
     <Web3ReactProvider getLibrary={getLibrary}>
       <GlobalContext.Provider value={ctx}>
         <Layout>
+          {ctx.loader && <Loader />}
           <Component {...pageProps} />
           <Modal {...ctx.modal} />
         </Layout>

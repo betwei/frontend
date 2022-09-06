@@ -1,17 +1,21 @@
-import { useContext, useState } from 'react'
+import { useContext, useState } from "react";
 
 // Context
-import GlobalContext from '.'
+import GlobalContext from ".";
 
 // Types
-import { IModal } from '../../interfaces/modal.interface'
+import { IModal } from "../../interfaces/modal.interface";
 
 export const useGlobalContext = () => {
-  const [modal, setModal] = useState({} as IModal)
+  const [modal, setModal] = useState({} as IModal);
+  const [loader, setLoader] = useState(false);
 
   return {
-    modal, setModal
-  }
-}
+    modal,
+    setModal,
+    loader,
+    setLoader,
+  };
+};
 
-export const useGetGlobalContext = () => useContext(GlobalContext)
+export const useGetGlobalContext = () => useContext(GlobalContext);

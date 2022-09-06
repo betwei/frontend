@@ -6,7 +6,7 @@ import BetWei from '../../config/web3/artifacts/BetWei'
 
 const { address, abi } = BetWei
 
-const usePlatziPunks = () => {
+const useContract = () => {
   const { active, library, chainId } = useWeb3React()
 
   const contract = useMemo(() => {
@@ -16,4 +16,4 @@ const usePlatziPunks = () => {
   return contract
 }
 
-export default usePlatziPunks
+export default useContract

@@ -1,0 +1,11 @@
+.player_games {
+  &__items {
+    text-align: justify;
+    span {
+      cursor: pointer;
+      &:hover {
+        color: var(--contrast1);
+      }
+    }
+  }
+}

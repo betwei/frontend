@@ -4,7 +4,7 @@ import { Provider } from 'web3-react/dist/manager'
 
 const connector = new InjectedConnector({
   supportedChainIds: [
-    4, // Rinkeby
+    5, // Goerli
   ],
 })
 
