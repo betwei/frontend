@@ -16,4 +16,5 @@ export interface IRandomGame {
   description?: string;
   members?: string[];
   owner?: string;
+  winners?: string[];
 }

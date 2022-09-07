@@ -5,7 +5,7 @@ import useContract from '../src/hooks/useContract'
 
 // Types
 import { ISendSuccess } from '../src/interfaces/contract.interface'
-import { IRandomGame } from '../src/interfaces/randomForm'
+import { IRandomGame } from '../src/interfaces/randomForm.interface'
 
 // Components
 import RandomGame from '../src/components/shared/random-game/RandomGame'
@@ -21,7 +21,9 @@ export default function Play() {
 
   const getGame = async (gameId?: string) => {
     if (gameId && contract) return {
-      ...(await contract.methods.viewGame(gameId).call()), idGame: gameId
+      ...(await contract.methods.viewGame(gameId).call()),
+      idGame: gameId,
+      winners: await contract.methods.winners(gameId).call()
     }
   }
 

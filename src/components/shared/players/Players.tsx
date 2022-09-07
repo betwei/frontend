@@ -11,7 +11,10 @@ import styles from './Players.module.scss'
 
 function Players({ players = [], owner, className }: IPlayers) {
   return (
-    <Card header='Jugadores' classNameCard={className}>
+    <Card
+      header='Jugadores'
+      classNameCard={className}
+      classNameMain='overflow-y-auto h-32'>
       <div className={styles.players__main}>
         <span>{truncatedAddress(owner || '')}</span><br />
         {players.filter(player => player !== owner).map(player => (

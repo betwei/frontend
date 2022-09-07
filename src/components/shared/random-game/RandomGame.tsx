@@ -16,6 +16,9 @@ import useContract from '../../../hooks/useContract'
 import { useShowModal } from '../../../hooks/useModal'
 import useLoader from '../../../hooks/useLoader'
 
+// Utils
+import truncatedAddress from '../../../utils/truncatedAddress'
+
 import styles from './RandomGame.module.scss'
 
 function RandomGame({ game, className, onChangeGame }: IRandomGame) {
@@ -93,6 +96,11 @@ function RandomGame({ game, className, onChangeGame }: IRandomGame) {
           <span>
             <b>cantidad de participantes:</b> <i>{game.duration}</i>
           </span>
+          {game.winners && game.winners?.length > 0 && <span>
+            <b>Ganadores:</b> <i>
+              {game.winners?.map(w => truncatedAddress(w)).join(', ')}
+            </i>
+          </span>}
         </div>
         <div
           className={`

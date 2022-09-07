@@ -1,5 +1,5 @@
 // Types
-import { IRandomGame } from './randomForm'
+import { IRandomGame } from './randomForm.interface'
 
 export interface IPlayerGames {
   onSelectedGame?: (game: IRandomGame) => void;

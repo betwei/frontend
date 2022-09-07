@@ -10,7 +10,7 @@ import Button from '../buttons/Button'
 import useContract from '../../../hooks/useContract'
 
 // Types
-import { IRandomForm } from '../../../interfaces/randomForm'
+import { IRandomForm } from '../../../interfaces/randomForm.interface'
 import { IModal } from '../../../interfaces/modal.interface'
 import { ISendSuccess } from '../../../interfaces/contract.interface'
 

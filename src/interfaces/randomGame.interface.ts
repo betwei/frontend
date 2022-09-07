@@ -1,4 +1,4 @@
-import { IRandomGame as irg } from './randomForm'
+import { IRandomGame as irg } from './randomForm.interface'
 
 export interface IRandomGame {
   game: irg;
