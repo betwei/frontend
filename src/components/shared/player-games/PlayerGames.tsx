@@ -34,7 +34,7 @@ function PlayerGames({ onSelectedGame, className }: IPlayerGames) {
         }
       setGames(gs)
       setEvents({
-        cNewGameCreated: contract.events.NewGameCreated(null, getData),
+        NewGameCreated: contract.events.NewGameCreated(null, getData),
         FinishGame: contract.events.FinishGame(null, getData)
       })
     }

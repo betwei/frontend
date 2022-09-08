@@ -10,6 +10,9 @@ export const useShowModal = (m: IModal) => {
   return () => setModal({
     ...m,
     open: true,
-    onClose: () => setModal({ ...modal, open: false })
+    onClose: () => {
+      if (m.onClose) m.onClose()
+      setModal({ ...modal, open: false })
+    }
   })
 }

@@ -48,10 +48,7 @@ export default function Play() {
         {randomGame && <RandomGame
           className={styles.play__sections}
           game={randomGame}
-          onChangeGame={async (idGame) => {
-            console.log(await getGame(idGame))
-            setRandomGame(await getGame(idGame))
-          }} />}
+          onChangeGame={async (idGame) => setRandomGame(await getGame(idGame))} />}
         <RandomForm
           className={styles.play__sections}
           onSave={onSaveNewRandomGame} />
