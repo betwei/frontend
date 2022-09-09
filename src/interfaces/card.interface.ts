@@ -6,4 +6,5 @@ export interface ICard {
   header?: any;
   children: any;
   footer?: any;
+  loading?: boolean;
 }

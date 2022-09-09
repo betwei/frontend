@@ -1,5 +1,6 @@
 // Types
 import { ICard } from '../../../interfaces/card.interface'
+import Loader from '../loader/Loader'
 
 import styles from './Card.module.scss'
 
@@ -10,7 +11,8 @@ function Card({
   classNameFooter,
   header,
   children,
-  footer
+  footer,
+  loading = false
 }: ICard) {
   return (
     <div className={`${styles.card} ${classNameCard}`}>
@@ -20,8 +22,9 @@ function Card({
         </div>
         <hr className={styles.contrast} />
       </header>}
-      <main className={classNameMain}>
+      <main className={`relative ${classNameMain}`}>
         {children}
+        {loading && <Loader absolute />}
       </main>
       {footer && <footer>
         <hr className={styles.contrast} />

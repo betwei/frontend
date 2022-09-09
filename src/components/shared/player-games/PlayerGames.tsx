@@ -8,21 +8,25 @@ import useContract from '../../../hooks/useContract'
 import { IPlayerGames } from '../../../interfaces/playerGames.interface'
 import { IRandomGame } from '../../../interfaces/randomForm.interface'
 
+// Utils
+import formatNumber from '../../../utils/formatNumber'
+
 // Components
 import Card from '../card/Card'
 
 import styles from './PlayerGames.module.scss'
-import formatNumber from '../../../utils/formatNumber'
 
 function PlayerGames({ onSelectedGame, className }: IPlayerGames) {
   const { account } = useWeb3React()
   const contract = useContract()
   const [events, setEvents] = useState({} as any)
+  const [loading, setLoading] = useState(false)
 
   const [games, setGames] = useState([] as IRandomGame[])
 
   const getData = useCallback(async () => {
     setGames([])
+    setLoading(true)
     if (contract) {
       const res = await contract.methods.playerGames(account).call()
       const gs = []
@@ -37,6 +41,7 @@ function PlayerGames({ onSelectedGame, className }: IPlayerGames) {
         NewGameCreated: contract.events.NewGameCreated(null, getData),
         FinishGame: contract.events.FinishGame(null, getData)
       })
+      setLoading(false)
     }
   }, [contract, account])
 
@@ -55,7 +60,8 @@ function PlayerGames({ onSelectedGame, className }: IPlayerGames) {
     <Card
       header='Tus juegos'
       classNameCard={className}
-      classNameMain='overflow-y-auto h-32'>
+      classNameMain='overflow-y-auto h-32'
+      loading={loading}>
       <div className={styles.player_games__items}>
         {games.sort((a, b) => parseInt(b.idGame || '0') - parseInt(a.idGame || '0'))
           .map((g, i) => (
