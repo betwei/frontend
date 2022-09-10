@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // Contract
 import useContract from '../src/hooks/useContract'
@@ -31,7 +31,15 @@ export default function Play() {
     setRandomGame(await getGame(res?.events?.NewGameCreated?.returnValues?.gameId))
   }
 
-  const handleSelectedGame = (g: IRandomGame) => setRandomGame(g)
+  const handleSelectedGame = async (g: string) => setRandomGame(await getGame(g))
+
+  useEffect(() => {
+    const finishGameEvent = contract
+      ? contract.events.FinishGame(null, () => console.log('FinishGame')) : null
+    return () => {
+      if (finishGameEvent) finishGameEvent.removeAllListeners('FinishGame')
+    }
+  }, [contract])
 
   return (
     <div className={styles.play}>

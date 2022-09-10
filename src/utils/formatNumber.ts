@@ -1,7 +1,7 @@
 const formatNumber = (number: number, width: number = 5) => {
   var numberOutput = Math.abs(number)
   var length = number.toString().length
-  var zero = '-'
+  var zero = 'X'
 
   if (width <= length) {
     if (number < 0) return ('-' + numberOutput.toString())

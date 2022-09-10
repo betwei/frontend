@@ -7,7 +7,7 @@ function About() {
   const items = [
     {
       title: 'Conecta Metamask',
-      desc: 'Usala para conectarte a tu cuenta en Goerli, loguearte, realizar el pago de tus apuestas y retirar tu balance.'
+      desc: 'Úsala para conectarte a tu cuenta en Goerli, loguearte, realizar el pago de tus apuestas y retirar tu balance.'
     },
     {
       title: 'Reune a tus amigos',
@@ -30,7 +30,7 @@ function About() {
     <div className={styles.about}>
       <section>
         <h3>Descentralizado y Anónimo</h3>
-        <h1>Comienza ahora facilmente</h1>
+        <h1>Comienza ahora fácilmente</h1>
         <h6>Conecta tu metamask y empieza a jugar</h6>
         <Image src='/landing2.png' width='595px' height='423px' alt='team' objectFit='cover' />
       </section>

@@ -8,18 +8,15 @@ import useContract from '../../../hooks/useContract'
 import { IPlayerGames } from '../../../interfaces/playerGames.interface'
 import { IRandomGame } from '../../../interfaces/randomForm.interface'
 
-// Utils
-import formatNumber from '../../../utils/formatNumber'
-
 // Components
 import Card from '../card/Card'
 
 import styles from './PlayerGames.module.scss'
+import FormatNumber from '../format-number/FormatNumber'
 
 function PlayerGames({ onSelectedGame, className }: IPlayerGames) {
   const { account } = useWeb3React()
   const contract = useContract()
-  const [events, setEvents] = useState({} as any)
   const [loading, setLoading] = useState(false)
 
   const [games, setGames] = useState([] as IRandomGame[])
@@ -37,10 +34,6 @@ function PlayerGames({ onSelectedGame, className }: IPlayerGames) {
           winners: await contract.methods.winners(game).call()
         }
       setGames(gs)
-      setEvents({
-        NewGameCreated: contract.events.NewGameCreated(null, getData),
-        FinishGame: contract.events.FinishGame(null, getData)
-      })
       setLoading(false)
     }
   }, [contract, account])
@@ -50,11 +43,11 @@ function PlayerGames({ onSelectedGame, className }: IPlayerGames) {
   }, [getData])
 
   useEffect(() => {
+    const newGameEvent = contract ? contract.events.NewGameCreated(null, getData) : null
     return () => {
-      if (events) Object.keys(events)
-        .forEach(event => events[event].removeAllListeners(event))
+      if (newGameEvent) newGameEvent.removeAllListeners('NewGameCreated')
     }
-  }, [events])
+  }, [contract, getData])
 
   return (
     <Card
@@ -65,8 +58,10 @@ function PlayerGames({ onSelectedGame, className }: IPlayerGames) {
       <div className={styles.player_games__items}>
         {games.sort((a, b) => parseInt(b.idGame || '0') - parseInt(a.idGame || '0'))
           .map((g, i) => (
-            <span key={i} onClick={() => onSelectedGame && onSelectedGame(g)}>
-              ({formatNumber(parseInt(g.idGame || '0'))}) {g.description}<br />
+            <span key={i}
+              className='truncate'
+              onClick={() => onSelectedGame && onSelectedGame(g.idGame || '0')}>
+              (<FormatNumber number={g.idGame} />) {g.description}<br />
             </span>
           ))}
       </div>
