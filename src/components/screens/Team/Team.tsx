@@ -2,8 +2,6 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { IoLogoGithub } from 'react-icons/io5'
 
-import styles from './Team.module.scss'
-
 function Team() {
   const [current, setCurrent] = useState(null as any)
   const items = [
@@ -54,13 +52,13 @@ function Team() {
         </>}
       </div>
       <div className="mt-3 flex -space-x-2 overflow-hidden">
-        {items.map(item => (<>
-          <Image
+        {items.map((item, i) => (
+          <Image key={i}
             className="inline-block rounded-full object-cover right-3"
             width={80} height={80}
             src={item.photo} alt={item.name}
             onMouseEnter={() => setCurrent(item)} />
-        </>))}
+        ))}
       </div>
     </div>
   )

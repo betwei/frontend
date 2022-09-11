@@ -25,15 +25,11 @@ function PlayerGames({ onSelectedGame, className }: IPlayerGames) {
     setGames([])
     setLoading(true)
     if (contract) {
-      const res = await contract.methods.playerGames(account).call()
-      const gs = []
-      for (let [i, game] of res.entries())
-        gs[i] = {
-          ...(await contract.methods.viewGame(game).call()),
-          idGame: game,
-          winners: await contract.methods.winners(game).call()
-        }
-      setGames(gs)
+      setGames(((await contract.methods.playerGames(account).call()) as string[]).map(
+        r => ({
+          idGame: r.slice(0, r.indexOf('-')),
+          description: r.slice(r.indexOf('-') + 1)
+        })))
       setLoading(false)
     }
   }, [contract, account])
@@ -44,8 +40,10 @@ function PlayerGames({ onSelectedGame, className }: IPlayerGames) {
 
   useEffect(() => {
     const newGameEvent = contract ? contract.events.NewGameCreated(null, getData) : null
+    const enrolledToGameEvent = contract ? contract.events.EnrolledToGame(null, getData) : null
     return () => {
       if (newGameEvent) newGameEvent.removeAllListeners('NewGameCreated')
+      if (enrolledToGameEvent) enrolledToGameEvent.removeAllListeners('EnrolledToGame')
     }
   }, [contract, getData])
 

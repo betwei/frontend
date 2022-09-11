@@ -1,7 +1,4 @@
 .play {
-  display: grid;
-  grid-template-columns: calc(30% - 50px) calc(70% - 45px);
-  gap: 95px;
   &__sections {
     margin-bottom: 20px;
   }

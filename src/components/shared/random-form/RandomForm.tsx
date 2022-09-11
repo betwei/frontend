@@ -62,7 +62,7 @@ function RandomForm({ onSave, className }: IRandomForm) {
       return;
     }
     contract.methods
-      .createNewGame(0, players, description)
+      .createSimpleNewGame(players, description)
       .send({
         from: account,
         value: betValue * Math.pow(10, 18)

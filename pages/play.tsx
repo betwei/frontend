@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 // Contract
 import useContract from '../src/hooks/useContract'
@@ -18,6 +19,7 @@ import styles from '../styles/Play.module.scss'
 export default function Play() {
   const contract = useContract()
   const [randomGame, setRandomGame] = useState(null as IRandomGame | null | undefined)
+  const { idGame } = useRouter()?.query as any
 
   const getGame = async (gameId?: string) => {
     if (gameId && contract) return {
@@ -34,16 +36,20 @@ export default function Play() {
   const handleSelectedGame = async (g: string) => setRandomGame(await getGame(g))
 
   useEffect(() => {
-    const finishGameEvent = contract
-      ? contract.events.FinishGame(null, () => console.log('FinishGame')) : null
+    const finishGameEvent = contract ? contract.events.FinishGame() : null;
+    const enrolledToGameEvent = contract ? contract.events.EnrolledToGame() : null;
+    [finishGameEvent, enrolledToGameEvent].filter(e => e !== null).forEach(e => e.on('data',
+      (data: any) => getGame(data?.returnValues.gameId).then(game => setRandomGame(game))))
+    if (contract && idGame) getGame(idGame).then(game => setRandomGame(game))
     return () => {
       if (finishGameEvent) finishGameEvent.removeAllListeners('FinishGame')
+      if (enrolledToGameEvent) enrolledToGameEvent.removeAllListeners('EnrolledToGame')
     }
   }, [contract])
 
   return (
-    <div className={styles.play}>
-      <div>
+    <div className={`${styles.play} flex gap-10`}>
+      <div className='sm:w-full lg:w-2/6'>
         {randomGame && <Players
           className={styles.play__sections}
           players={randomGame.members}
@@ -52,7 +58,7 @@ export default function Play() {
           className={styles.play__sections}
           onSelectedGame={handleSelectedGame} />
       </div>
-      <div>
+      <div className='sm:w-full lg:w-4/6'>
         {randomGame && <RandomGame
           className={styles.play__sections}
           game={randomGame}
