@@ -14,7 +14,7 @@ import Card from '../card/Card'
 import styles from './PlayerGames.module.scss'
 import FormatNumber from '../format-number/FormatNumber'
 
-function PlayerGames({ onSelectedGame, className }: IPlayerGames) {
+function PlayerGames({ onSelectedGame, currentSelected, className }: IPlayerGames) {
   const { account } = useWeb3React()
   const contract = useContract()
   const [loading, setLoading] = useState(false)
@@ -54,10 +54,13 @@ function PlayerGames({ onSelectedGame, className }: IPlayerGames) {
       classNameMain='overflow-y-auto h-32'
       loading={loading}>
       <div className={styles.player_games__items}>
+        {games.length === 0
+          ? <p className='text-center font-bold'>Todavía no tienes juegos</p> : ''}
         {games.sort((a, b) => parseInt(b.idGame || '0') - parseInt(a.idGame || '0'))
           .map((g, i) => (
             <span key={i}
-              className='truncate'
+              className={
+                `truncate ${currentSelected === g.idGame ? styles.player_games__current : ''}`}
               onClick={() => onSelectedGame && onSelectedGame(g.idGame || '0')}>
               (<FormatNumber number={g.idGame} />) {g.description}<br />
             </span>

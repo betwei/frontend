@@ -56,11 +56,8 @@ function RandomForm({ onSave, className }: IRandomForm) {
   }
 
   const handleCreateGame = async () => {
+    if (descriptionErr !== '' || betValueErr !== '' || playersErr !== '') return;
     setLoader(true)
-    if (betValueErr !== '' || playersErr !== '') {
-      setLoader(false)
-      return;
-    }
     contract.methods
       .createSimpleNewGame(players, description)
       .send({
@@ -70,7 +67,7 @@ function RandomForm({ onSave, className }: IRandomForm) {
       .on('receipt', (res: ISendSuccess) => setModalVals({
         type: 'success',
         title: 'Creación Juego',
-        children: 'El juego fue creado con éxito, clic en aceptar para poder compartirlo o iniciarlo.',
+        children: 'El juego fue creado con éxito, click en aceptar para poder compartirlo o iniciarlo.',
         actions: [{ label: 'Aceptar', action: () => onSave && onSave(res) }]
       }))
       .on('error', () => setModalVals({
@@ -107,19 +104,19 @@ function RandomForm({ onSave, className }: IRandomForm) {
         <div>
           <Input
             type='number'
-            label='Cantidad a jugadores:'
+            label='Cantidad de jugadores:'
             value={players}
             onChange={(value: number) => setPlayers(value)}
             error={playersErr} />
         </div>
         <div>
           <Button
-            className={`
-              w-full mt-3 md:mt-0 ${styles.random__btn}
-              ${descriptionErr === '' && betValueErr === ''}`}
+            className={`w-full mt-3 md:mt-0 ${styles.random__btn}`}
             color='contrast1'
             onClick={handleCreateGame}
-            disabled={description === '' || betValueErr !== '' || playersErr !== ''}>
+            disabled={
+              description === '' || descriptionErr !== '' ||
+              betValueErr !== '' || playersErr !== ''}>
             Lanzar Apuesta
           </Button>
         </div>

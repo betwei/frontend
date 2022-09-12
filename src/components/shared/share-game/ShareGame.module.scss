@@ -1,0 +1,17 @@
+.share_game {
+  &__qr {
+    span, a, i {
+      display: block;
+    }
+
+    a, i {
+      color: var(--white);
+      text-decoration: underline;
+      font-weight: bold;
+      cursor: pointer;
+      &:hover {
+        color: var(--contrast1);
+      }
+    }
+  }
+}

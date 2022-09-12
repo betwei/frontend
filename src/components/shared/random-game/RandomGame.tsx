@@ -1,10 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
-import { toDataURL } from 'qrcode'
-import { FaCopy } from 'react-icons/fa'
-import { AiFillLike } from 'react-icons/ai'
 
 // Types
 import { IRandomGame } from '../../../interfaces/randomGame.interface'
@@ -13,10 +8,12 @@ import { IModal } from '../../../interfaces/modal.interface'
 // Components
 import Card from '../card/Card'
 import Button from '../atoms/buttons/Button'
+import NFTMetadata from '../nfg-metadata/NFTMetadata'
+import ShareGame from '../share-game/ShareGame'
 
 // Hooks
-import useContract from '../../../hooks/useContract'
 import { useShowModal } from '../../../hooks/useModal'
+import useContract from '../../../hooks/useContract'
 import useLoader from '../../../hooks/useLoader'
 
 // Utils
@@ -29,10 +26,7 @@ function RandomGame({ game, className, onChangeGame }: IRandomGame) {
   const { account } = useWeb3React()
   const contract = useContract()
   const { setLoader } = useLoader()
-  const [urlImg, setUrlImg] = useState('')
-  const [url, setUrl] = useState('')
   const [modalVals, setModalVals] = useState({} as IModal)
-  const [isCopyToChipboard, setIsCopyToChipboard] = useState(false)
 
   const modal = useShowModal(modalVals)
   const canEroll = () => (
@@ -59,33 +53,14 @@ function RandomGame({ game, className, onChangeGame }: IRandomGame) {
       }))
   }
 
-  const getUrlShare = () => {
-    const params = (new URLSearchParams({ idGame: game.idGame || '' })).toString()
-    return `${window.location.href}?${params}`
-  }
-
-  const handleCopyToChipboard = () => {
-    navigator.clipboard.writeText(getUrlShare())
-    setIsCopyToChipboard(true)
-  }
-
   useEffect(() => {
     setLoader(false)
     if (modalVals.title && modalVals.children) modal()
   }, [modalVals])
 
-  useEffect(() => {
-    const newUrl = getUrlShare()
-    const params = (new URLSearchParams({ text: newUrl })).toString()
-    setUrl(`https://api.whatsapp.com/send?${params}`)
-    toDataURL(newUrl, (err: any, url: string) => {
-      if (!err) setUrlImg(url)
-    })
-  }, [game.idGame, url])
-
   return (
     <Card
-      header={game.description}
+      header={`${game.description} (Tipo ${game.gameType === '0' ? 'Aleatorio' : 'Sorteo NFT'})`}
       classNameCard={className}
       footer={<div className={styles.random_game__footer}>
         {game.owner === account
@@ -120,49 +95,27 @@ function RandomGame({ game, className, onChangeGame }: IRandomGame) {
           <span>
             <b>Estado:</b> <i>{states[game.status ? parseInt(game.status) : 0]}</i>
           </span>
-          <span>
-            <b>Balance:</b> <i>{(game.balance || 0) / Math.pow(10, 18)} ETH</i>
-          </span>
-          <span>
-            <b>Apuesta:</b> <i>{(game.neededAmount || 0) / Math.pow(10, 18)} ETH</i>
-          </span>
+          {game.gameType === '0' && <>
+            <span>
+              <b>Balance:</b> <i>{(game.balance || 0) / Math.pow(10, 18)} ETH</i>
+            </span>
+            <span>
+              <b>Apuesta:</b> <i>{(game.neededAmount || 0) / Math.pow(10, 18)} ETH</i>
+            </span>
+          </>}
           <span>
             <b>Max participantes:</b> <i>{game.duration}</i>
           </span>
-          {game.winners && game.winners?.length > 0 && <span>
+          {game.winnersIndexed && game.winnersIndexed?.length > 0 && <span>
             <b>Ganadores:</b> <i>
-              {game.winners?.map(w => truncatedAddress(w)).join(', ')}
+              {game.winnersIndexed?.map(w => truncatedAddress(w)).join(', ')}
             </i>
           </span>}
+          {game.gameType !== '0' && <ShareGame className='mt-10' game={game} />}
         </div>
-        <div
-          className={` m-auto
-            ${styles.random_game__qr}
-            ${((game.status !== '0' && game.status !== '1') || game.owner !== account)
-              ? 'opacity-5' : ''}`}>
-          {urlImg !== '' && <img
-            src={urlImg}
-            className='w-9 h-9 md:w-20 md:h-20 m-auto'
-            alt={game.description} />}
-          {(url && (game.status === '0' || game.status === '1'))
-            ? <div className='flex gap-1 md:gap-3 justify-center text-xs md:text-sm'>
-              <a
-                href={url}
-                target='_blank'
-                rel='noopener noreferrer'>
-                Compartir por whatsapp
-              </a>
-              {!isCopyToChipboard
-                ? <FaCopy size={20}
-                  className='cursor-pointer hover:animate-pulse'
-                  onClick={handleCopyToChipboard} />
-                : <AiFillLike size={20}
-                  className='cursor-pointer animate-pulse'
-                  title={`${getUrlShare()} copiado...`}
-                  onMouseLeave={() => setIsCopyToChipboard(false)} />}
-            </div>
-            : <i>Compartir por whatsapp</i>}
-        </div>
+        {game.gameType === '0'
+          ? <ShareGame game={game} />
+          : (game.idGame && <NFTMetadata gameId={game.idGame} />)}
       </div>
     </Card>
   )

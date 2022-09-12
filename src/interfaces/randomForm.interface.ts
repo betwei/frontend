@@ -11,10 +11,10 @@ export interface IRandomGame {
   balance?: number;
   duration?: number;
   neededAmount?: number;
-  gameType?: number;
+  gameType?: string;
   status?: string;
   description?: string;
   members?: string[];
   owner?: string;
-  winners?: string[];
+  winnersIndexed?: string[];
 }

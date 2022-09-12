@@ -25,8 +25,11 @@ function Input({
     const wB = refB.current ? (refB.current as any).offsetWidth : 0
     const wDiv = refDiv.current ? (refDiv.current as any).offsetWidth : 0
     const wSpan = refSpan.current ? (refSpan.current as any).offsetWidth : 0
-    if (wB < (wDiv - wSpan - 40))
-      setWidth(`${refB.current ? (refB.current as any).offsetWidth || 1 : 1}px`)
+    if (wB <= (wDiv - wSpan))
+      setWidth(`${refB.current ? (
+        wB === (wDiv - wSpan)
+          ? (refB.current as any).offsetWidth - 40
+          : (refB.current as any).offsetWidth) || 1 : 1}px`)
   }, [value])
   return (
     <div

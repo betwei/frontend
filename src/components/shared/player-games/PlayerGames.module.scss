@@ -1,4 +1,7 @@
 .player_games {
+  &__current {
+    color: var(--contrast1);
+  }
   &__items {
     text-align: justify;
     span {
