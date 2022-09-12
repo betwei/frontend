@@ -72,7 +72,7 @@ export default function Navbar() {
       </ul>
       {active
         ? <Address />
-        : <Button className='w-24 truncate whitespace-nowrap' onClick={connect}>
+        : <Button className='truncate whitespace-nowrap' onClick={connect}>
           {isUnsupportedChain
             ? 'Red no soportada'
             : <>
