@@ -1,6 +1,6 @@
 const BetWei = {
   address: {
-    5: "0x163a9d300467B9a77Bb0Fbe9fABfeCaE0Df28104",
+    5: "0xF09B3071fA557D16E301200DF5A1E2db592ab547",
   },
   abi: [
     {
@@ -146,6 +146,27 @@ const BetWei = {
       inputs: [],
       name: "getBalance",
       outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "_gameId", type: "uint256" }],
+      name: "nftInfo",
+      outputs: [
+        {
+          components: [
+            {
+              internalType: "contract IERC721",
+              name: "nftContract",
+              type: "address",
+            },
+            { internalType: "uint256", name: "tokenId", type: "uint256" },
+          ],
+          internalType: "struct Betwei.NFTGameRandom",
+          name: "",
+          type: "tuple",
+        },
+      ],
       stateMutability: "view",
       type: "function",
     },
