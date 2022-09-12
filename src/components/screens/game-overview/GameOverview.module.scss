@@ -17,9 +17,4 @@
   &_subtitle {
     color: var(--contrast1);
   }
-  &_gameList {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(3, 1fr);
-  }
 }

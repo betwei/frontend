@@ -1,5 +1,5 @@
 // Types
-import { ILoader } from '../../../interfaces/loader.interface'
+import { ILoader } from '../../../../interfaces/atoms/loader.interface'
 
 import styles from './Loader.module.scss'
 

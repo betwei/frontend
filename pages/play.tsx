@@ -48,8 +48,8 @@ export default function Play() {
   }, [contract])
 
   return (
-    <div className={`${styles.play} flex gap-10`}>
-      <div className='sm:w-full lg:w-2/6'>
+    <div className={`${styles.play} md:grid md:grid-cols-3 gap-4`}>
+      <div>
         {randomGame && <Players
           className={styles.play__sections}
           players={randomGame.members}
@@ -58,7 +58,7 @@ export default function Play() {
           className={styles.play__sections}
           onSelectedGame={handleSelectedGame} />
       </div>
-      <div className='sm:w-full lg:w-4/6'>
+      <div className='col-span-2'>
         {randomGame && <RandomGame
           className={styles.play__sections}
           game={randomGame}

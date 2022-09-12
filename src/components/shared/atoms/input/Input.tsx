@@ -1,6 +1,6 @@
 // Types
 import { useEffect, useRef, useState } from 'react'
-import { IInput } from '../../../interfaces/input.interface'
+import { IInput } from '../../../../interfaces/atoms/input.interface'
 
 import styles from './Input.module.scss'
 
@@ -25,8 +25,8 @@ function Input({
     const wB = refB.current ? (refB.current as any).offsetWidth : 0
     const wDiv = refDiv.current ? (refDiv.current as any).offsetWidth : 0
     const wSpan = refSpan.current ? (refSpan.current as any).offsetWidth : 0
-    if (wB < (wDiv-wSpan-40))
-      setWidth(`${refB.current ? (refB.current as any).offsetWidth||1 : 1}px`)
+    if (wB < (wDiv - wSpan - 40))
+      setWidth(`${refB.current ? (refB.current as any).offsetWidth || 1 : 1}px`)
   }, [value])
   return (
     <div
@@ -36,7 +36,7 @@ function Input({
         ${disabled && 'opacity-70'}`}
       onClick={() => !disabled && (refI?.current as any)?.focus()}
       title={value}>
-      <label htmlFor='first-name' className='block text-sm font-medium text-left'>
+      <label htmlFor='first-name' className='block text-sm font-medium text-left truncate'>
         {label}
       </label>
       <div ref={refDiv as any} className='mt-1 block w-full shadow-sm sm:text-sm'>
@@ -52,10 +52,10 @@ function Input({
           disabled={disabled}
           onChange={(e) => !disabled && onChange && onChange(
             e.target.value
-          )}/>
+          )} />
         <span ref={refSpan as any}>{alias}</span>
       </div>
-      {error && error.trim()!=='' &&
+      {error && error.trim() !== '' &&
         <i>{error}</i>}
     </div>
   )

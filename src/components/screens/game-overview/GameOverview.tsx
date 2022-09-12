@@ -12,9 +12,9 @@ function GameOverview() {
           En vivo y próximos juegos
         </p>
       </div>
-      <div className={styles.gameOverview_gameList}>
+      <div className='md:grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
         {generatePlayersMock(6).map((item, index) => (
-          <GameCard {...item} key={index}></GameCard>
+          <GameCard {...item} key={index} className='mt-2' />
         ))}
       </div>
     </div>

@@ -1,11 +1,11 @@
 import React from "react";
-import Button from "../buttons/Button";
+import Button from "../atoms/buttons/Button";
 import styles from "./GameCard.module.scss";
 import { ICardOverview } from "../../../interfaces/gameOverview.interface";
 
-function GameCard({ date, headerTitle, buttonTitle }: ICardOverview) {
+function GameCard({ date, headerTitle, buttonTitle, className }: ICardOverview) {
   return (
-    <div className={styles.gameCard}>
+    <div className={`${styles.gameCard} ${className}`}>
       <div className={styles.gameCard_header}>
         <p>{date}</p>
       </div>

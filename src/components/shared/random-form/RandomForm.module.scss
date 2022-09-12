@@ -4,17 +4,7 @@
   align-items: center;
   gap: 30px;
 
-  &__inputs {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-  }
-
   &__btn {
-    margin-top: 25px;
-  }
-
-  &__btn2 {
-    margin-top: -25px;
+    height: 53px;
   }
 }

@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 
 // Components
 import Card from '../card/Card'
-import Input from '../input/Input'
-import Button from '../buttons/Button'
+import Input from '../atoms/input/Input'
+import Button from '../atoms/buttons/Button'
 
 // Contracts
 import useContract from '../../../hooks/useContract'
@@ -87,37 +87,43 @@ function RandomForm({ onSave, className }: IRandomForm) {
   return (
     <Card classNameMain={`${styles.random} ${className}`}
       header='Crear juego aleatorio'>
-      <div className={`${styles.random__inputs} w-3/4`}>
-        <Input
-          className='w-1/2'
-          label='Descripción:'
-          value={description}
-          onChange={handleDescripcionChange}
-          error={descriptionErr} />
-        <Input
-          className='w-1/2'
-          type='number'
-          label='Cantidad a apostar:'
-          alias='ETH'
-          value={betValue}
-          onChange={(value: number) => setBetValue(value)}
-          error={betValueErr} />
-        <Input
-          className='w-1/2'
-          type='number'
-          label='Cantidad a jugadores:'
-          value={players}
-          onChange={(value: number) => setPlayers(value)}
-          error={playersErr} />
+      <div className={`w-full md:grid md:grid-cols-2 lg:grid-cols-4 gap-4`}>
+        <div>
+          <Input
+            label='Descripción:'
+            value={description}
+            onChange={handleDescripcionChange}
+            error={descriptionErr} />
+        </div>
+        <div>
+          <Input
+            type='number'
+            label='Cantidad a apostar:'
+            alias='ETH'
+            value={betValue}
+            onChange={(value: number) => setBetValue(value)}
+            error={betValueErr} />
+        </div>
+        <div>
+          <Input
+            type='number'
+            label='Cantidad a jugadores:'
+            value={players}
+            onChange={(value: number) => setPlayers(value)}
+            error={playersErr} />
+        </div>
+        <div>
+          <Button
+            className={`
+              w-full mt-3 md:mt-0 ${styles.random__btn}
+              ${descriptionErr === '' && betValueErr === ''}`}
+            color='contrast1'
+            onClick={handleCreateGame}
+            disabled={description === '' || betValueErr !== '' || playersErr !== ''}>
+            Lanzar Apuesta
+          </Button>
+        </div>
       </div>
-      <Button
-        className={`w-1/4 ${descriptionErr === '' && betValueErr === '' && playersErr === ''
-          ? styles.random__btn : styles.random__btn2}`}
-        color='contrast1'
-        onClick={handleCreateGame}
-        disabled={description === '' || betValueErr !== '' || playersErr !== ''}>
-        Lanzar Apuesta
-      </Button>
     </Card>
   )
 }

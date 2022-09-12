@@ -1,6 +1,6 @@
 // Types
 import { ICard } from '../../../interfaces/card.interface'
-import Loader from '../loader/Loader'
+import Loader from '../atoms/loader/Loader'
 
 import styles from './Card.module.scss'
 

@@ -45,8 +45,8 @@ function Team() {
         </span>
         {current && <>
           <b>{current.name}</b>
-          <span>{current.contact}</span>
-          <a href={current.github} className="text-blue-500">
+          <span className='truncate'>{current.contact}</span>
+          <a href={current.github} target='_blank' className="text-blue-500" rel="noreferrer">
             <IoLogoGithub />
           </a>
         </>}
@@ -54,9 +54,11 @@ function Team() {
       <div className="mt-3 flex -space-x-2 overflow-hidden">
         {items.map((item, i) => (
           <Image key={i}
-            className="inline-block rounded-full object-cover right-3"
+            className="inline-block rounded-full object-cover right-3 hover:animate-pulse cursor-copy"
             width={80} height={80}
             src={item.photo} alt={item.name}
+            title={`Click para copiar la información de contacto de ${item.name}`}
+            onClick={() => navigator.clipboard.writeText(JSON.stringify(item))}
             onMouseEnter={() => setCurrent(item)} />
         ))}
       </div>

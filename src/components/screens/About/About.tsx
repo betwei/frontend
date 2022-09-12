@@ -27,7 +27,7 @@ function About() {
     }
   ]
   return (
-    <div className={styles.about}>
+    <div className={`${styles.about} md:grid md:grid-cols-2 gap-4`}>
       <section>
         <h3>Descentralizado y Anónimo</h3>
         <h1>Comienza ahora fácilmente</h1>

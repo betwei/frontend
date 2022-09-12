@@ -10,6 +10,9 @@
   &_players {
     display: flex;
     justify-content: space-between;
+    img {
+      width: 30px;
+    }
   }
   &_button {
     display: flex;

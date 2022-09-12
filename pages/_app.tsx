@@ -3,7 +3,7 @@ import { AppProps } from 'next/app'
 
 // Components
 import Layout from '../src/components/Layout/Layout'
-import Loader from '../src/components/shared/loader/Loader'
+import Loader from '../src/components/shared/atoms/loader/Loader'
 import Modal from '../src/components/shared/modal/Modal'
 
 // Web3 connection

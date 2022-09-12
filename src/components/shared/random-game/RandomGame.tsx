@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
+
 import { useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
-import Image from 'next/image'
 import { toDataURL } from 'qrcode'
 import { FaCopy } from 'react-icons/fa'
 import { AiFillLike } from 'react-icons/ai'
@@ -11,7 +12,7 @@ import { IModal } from '../../../interfaces/modal.interface'
 
 // Components
 import Card from '../card/Card'
-import Button from '../buttons/Button'
+import Button from '../atoms/buttons/Button'
 
 // Hooks
 import useContract from '../../../hooks/useContract'
@@ -90,12 +91,14 @@ function RandomGame({ game, className, onChangeGame }: IRandomGame) {
         {game.owner === account
           ? <>
             <Button
+              className='h-11 md:h-7'
               color='primary'
               disabled={game.status !== '0' || game.owner !== account}
               onClick={() => handleUpdateGame('closeGame')}>
               Cerrar Juego
             </Button>
             <Button
+              className='h-11 md:h-7'
               color='contrast1'
               disabled={game.status !== '1' || game.owner !== account}
               onClick={() => handleUpdateGame('startGame')}>
@@ -104,6 +107,7 @@ function RandomGame({ game, className, onChangeGame }: IRandomGame) {
           </>
           : <>
             <Button
+              className='h-11 md:h-7'
               color='contrast1'
               disabled={!canEroll()}
               onClick={() => handleUpdateGame('enrollToGame')}>
@@ -111,8 +115,8 @@ function RandomGame({ game, className, onChangeGame }: IRandomGame) {
             </Button>
           </>}
       </div>}>
-      <div className={styles.random_game}>
-        <div className={styles.random_game__info}>
+      <div className={`${styles.random_game} grid grid-cols-3 md:grid-cols-2`}>
+        <div className={`${styles.random_game__info} col-span-2 md:col-span-1`}>
           <span>
             <b>Estado:</b> <i>{states[game.status ? parseInt(game.status) : 0]}</i>
           </span>
@@ -123,7 +127,7 @@ function RandomGame({ game, className, onChangeGame }: IRandomGame) {
             <b>Apuesta:</b> <i>{(game.neededAmount || 0) / Math.pow(10, 18)} ETH</i>
           </span>
           <span>
-            <b>cantidad de participantes:</b> <i>{game.duration}</i>
+            <b>Max participantes:</b> <i>{game.duration}</i>
           </span>
           {game.winners && game.winners?.length > 0 && <span>
             <b>Ganadores:</b> <i>
@@ -132,17 +136,16 @@ function RandomGame({ game, className, onChangeGame }: IRandomGame) {
           </span>}
         </div>
         <div
-          className={`
+          className={` m-auto
             ${styles.random_game__qr}
             ${((game.status !== '0' && game.status !== '1') || game.owner !== account)
               ? 'opacity-5' : ''}`}>
-          {urlImg !== '' && <Image
+          {urlImg !== '' && <img
             src={urlImg}
-            width={100}
-            height={100}
+            className='w-9 h-9 md:w-20 md:h-20 m-auto'
             alt={game.description} />}
           {(url && (game.status === '0' || game.status === '1'))
-            ? <div className='flex gap-3 justify-center'>
+            ? <div className='flex gap-1 md:gap-3 justify-center text-xs md:text-sm'>
               <a
                 href={url}
                 target='_blank'
