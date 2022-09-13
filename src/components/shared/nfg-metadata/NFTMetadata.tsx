@@ -37,7 +37,11 @@ function NFTMetadata({ game }: INFTMetadata) {
             { method: 'GET', redirect: 'follow' }
           ).then(res => res.text())
             .then(res => contractNFT.methods.ownerOf(data.tokenId).call()
-              .then((owner: string) => setMetadata({ ...JSON.parse(res), owner }))))
+              .then((owner: string) => setMetadata({
+                ...JSON.parse(res),
+                ...data,
+                owner
+              }))))
       })
 
     }
@@ -57,7 +61,13 @@ function NFTMetadata({ game }: INFTMetadata) {
         <i className='text-slate-300'>
           {metadata.attributes.map((a: any) => a.value).join(', ')}
         </i>}<br />
-      <b>{useTruncatedAddress(metadata.owner || '', 6)}</b>
+      <a
+        href={`https://testnets.opensea.io/es/assets/goerli/${metadata.nftContract}/${metadata.tokenId}`}
+        target='_blank'
+        rel='noopener noreferrer'
+        className='text-blue-600 font-bold'>
+        Míralo en OpenSea
+      </a>
     </div>
   )
 }
