@@ -11,9 +11,12 @@ import useContract from '../../../hooks/useContract'
 // Types
 import { INFTMetadata } from '../../../interfaces/nftMetadata.interface'
 
+// Utils
+import useTruncatedAddress from '../../../utils/truncatedAddress'
+
 import styles from './NFTMetadata.module.scss'
 
-function NFTMetadata({ gameId }: INFTMetadata) {
+function NFTMetadata({ game }: INFTMetadata) {
   const { library } = useWeb3React()
   const contract = useContract()
   const [metadata, setMetadata] = useState({} as any)
@@ -25,19 +28,20 @@ function NFTMetadata({ gameId }: INFTMetadata) {
   }
 
   useEffect(() => {
-    if (contract) {
-      contract.methods.nftInfo(gameId).call().then((data: any) => {
+    if (contract && game) {
+      contract.methods.nftInfo(game.idGame).call().then((data: any) => {
         const contractNFT = new library.eth.Contract(NFTsAbi, data.nftContract)
         contractNFT.methods.tokenURI(data.tokenId).call(
           (_: any, url: string) => fetch(
             url,
             { method: 'GET', redirect: 'follow' }
           ).then(res => res.text())
-            .then(res => setMetadata(JSON.parse(res))))
+            .then(res => contractNFT.methods.ownerOf(data.tokenId).call()
+              .then((owner: string) => setMetadata({ ...JSON.parse(res), owner }))))
       })
 
     }
-  }, [contract, gameId, library.eth.Contract])
+  }, [contract, game, library.eth.Contract])
 
   return (
     <div>
@@ -52,7 +56,8 @@ function NFTMetadata({ gameId }: INFTMetadata) {
       {metadata.attributes &&
         <i className='text-slate-300'>
           {metadata.attributes.map((a: any) => a.value).join(', ')}
-        </i>}
+        </i>}<br />
+      <b>{useTruncatedAddress(metadata.owner || '', 6)}</b>
     </div>
   )
 }

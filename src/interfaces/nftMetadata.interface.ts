@@ -1,3 +1,5 @@
+import { IRandomGame } from "./randomForm.interface";
+
 export interface INFTMetadata {
-  gameId: string;
+  game: IRandomGame;
 }

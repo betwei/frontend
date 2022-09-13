@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 
 // Types
@@ -27,13 +27,16 @@ function RandomGame({ game, className, onChangeGame }: IRandomGame) {
   const contract = useContract()
   const { setLoader } = useLoader()
   const [modalVals, setModalVals] = useState({} as IModal)
+  const [hasClaimReward, setHasClaimReward] = useState(false)
 
   const modal = useShowModal(modalVals)
   const canEroll = () => (
     !game.members?.find(m => m === account) &&
     (game.status === '0' || game.status === '1'))
 
-  const handleUpdateGame = async (type: 'startGame' | 'closeGame' | 'enrollToGame') => {
+  const handleUpdateGame = async (
+    type: 'startGame' | 'closeGame' | 'enrollToGame' | 'withdrawGame'
+  ) => {
     setLoader(true)
     contract.methods[type](game.idGame)
       .send(type === 'enrollToGame'
@@ -53,6 +56,14 @@ function RandomGame({ game, className, onChangeGame }: IRandomGame) {
       }))
   }
 
+  const getHasClaimReward = useCallback(async () => {
+    if (contract) setHasClaimReward(await contract.methods.hasClaimReward(game.idGame, account).call())
+  }, [contract, game, account])
+
+  useEffect(() => {
+    getHasClaimReward()
+  }, [getHasClaimReward])
+
   useEffect(() => {
     setLoader(false)
     if (modalVals.title && modalVals.children) modal()
@@ -63,32 +74,42 @@ function RandomGame({ game, className, onChangeGame }: IRandomGame) {
       header={`${game.description} (Tipo ${game.gameType === '0' ? 'Aleatorio' : 'Sorteo NFT'})`}
       classNameCard={className}
       footer={<div className={styles.random_game__footer}>
-        {game.owner === account
-          ? <>
-            <Button
-              className='h-11 md:h-7'
-              color='primary'
-              disabled={game.status !== '0' || game.owner !== account}
-              onClick={() => handleUpdateGame('closeGame')}>
-              Cerrar Juego
-            </Button>
-            <Button
-              className='h-11 md:h-7'
-              color='contrast1'
-              disabled={game.status !== '1' || game.owner !== account}
-              onClick={() => handleUpdateGame('startGame')}>
-              Iniciar Juego
-            </Button>
-          </>
-          : <>
-            <Button
-              className='h-11 md:h-7'
-              color='contrast1'
-              disabled={!canEroll()}
-              onClick={() => handleUpdateGame('enrollToGame')}>
-              Enrolarse
-            </Button>
-          </>}
+        {game.winnersIndexed?.find(w => w === account)
+          ? <Button
+            className='h-11 md:h-7'
+            color='primary'
+            disabled={!hasClaimReward}
+            onClick={() => handleUpdateGame('withdrawGame')}>
+            {game.gameType === '0' ? 'Retirar balance' : 'Transferir NFT'}
+          </Button>
+          : (
+            game.owner === account
+              ? <>
+                <Button
+                  className='h-11 md:h-7'
+                  color='primary'
+                  disabled={game.status !== '0' || game.owner !== account}
+                  onClick={() => handleUpdateGame('closeGame')}>
+                  Cerrar Juego
+                </Button>
+                <Button
+                  className='h-11 md:h-7'
+                  color='contrast1'
+                  disabled={game.status !== '1' || game.owner !== account}
+                  onClick={() => handleUpdateGame('startGame')}>
+                  Iniciar Juego
+                </Button>
+              </>
+              : <>
+                <Button
+                  className='h-11 md:h-7'
+                  color='contrast1'
+                  disabled={!canEroll()}
+                  onClick={() => handleUpdateGame('enrollToGame')}>
+                  Enrolarse
+                </Button>
+              </>
+          )}
       </div>}>
       <div className={`${styles.random_game} grid grid-cols-3 md:grid-cols-2`}>
         <div className={`${styles.random_game__info} col-span-2 md:col-span-1`}>
@@ -115,7 +136,7 @@ function RandomGame({ game, className, onChangeGame }: IRandomGame) {
         </div>
         {game.gameType === '0'
           ? <ShareGame game={game} />
-          : (game.idGame && <NFTMetadata gameId={game.idGame} />)}
+          : (game && game.idGame && <NFTMetadata game={game} />)}
       </div>
     </Card>
   )

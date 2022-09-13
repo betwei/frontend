@@ -50,7 +50,7 @@ function NFTForm({ onSave, className }: IRandomForm) {
     if (isTouchedNftContract && nftContract === '')
       setNftContractErr('Debes ingresar la dirección del contrato')
     else setNftContractErr('')
-    if (tokenId < 0) setTokenIdErr('Debe definir un token valido')
+    if (tokenId.toString() === '' || tokenId < 0) setTokenIdErr('Debe definir un token valido')
     else setTokenIdErr('')
     if (players < 2) setPlayersErr('Un juego al menos debe tener 2 jugadores')
     else setPlayersErr('')

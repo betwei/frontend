@@ -40,14 +40,24 @@ export default function Play() {
   const handleSelectedGame = async (g: string) => setRandomGame(await getGame(g))
 
   useEffect(() => {
-    const finishGameEvent = contract ? contract.events.FinishGame() : null;
-    const enrolledToGameEvent = contract ? contract.events.EnrolledToGame() : null;
-    [finishGameEvent, enrolledToGameEvent].filter(e => e !== null).forEach(e => e.on('data',
-      (data: any) => getGame(data?.returnValues.gameId).then(game => setRandomGame(game))))
+    const handleReloadGame = (data: any) =>
+      getGame(randomGame?.idGame || data.returnValues.gameId).then(game => {
+        if (game) setRandomGame(game)
+      })
+
+    const events = contract ? [
+      contract.events.FinishGame(),
+      contract.events.EnrolledToGame(),
+      contract.events.WithdrawFromGame()
+    ] : []
+    events.forEach(e => e.on('data', handleReloadGame))
+
     if (contract && idGame) getGame(idGame).then(game => setRandomGame(game))
     return () => {
+      const [finishGameEvent, enrolledToGameEvent, withdrawFromGameEvent] = events
       if (finishGameEvent) finishGameEvent.removeAllListeners('FinishGame')
       if (enrolledToGameEvent) enrolledToGameEvent.removeAllListeners('EnrolledToGame')
+      if (withdrawFromGameEvent) withdrawFromGameEvent.removeAllListeners('WithdrawFromGame')
     }
   }, [contract])
 

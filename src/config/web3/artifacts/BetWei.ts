@@ -1,6 +1,6 @@
 const BetWei = {
   address: {
-    5: "0xF09B3071fA557D16E301200DF5A1E2db592ab547",
+    5: "0x8d89DC7D4D1A795157eAe860f9da7634348eB0ef",
   },
   abi: [
     {
@@ -117,7 +117,9 @@ const BetWei = {
         { internalType: "string", name: "_description", type: "string" },
       ],
       name: "createSimpleNewGame",
-      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      outputs: [
+        { internalType: "uint256", name: "newGameIndex", type: "uint256" },
+      ],
       stateMutability: "payable",
       type: "function",
     },
@@ -146,6 +148,16 @@ const BetWei = {
       inputs: [],
       name: "getBalance",
       outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        { internalType: "uint256", name: "_gameId", type: "uint256" },
+        { internalType: "address", name: "beneficiary", type: "address" },
+      ],
+      name: "hasClaimReward",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
       stateMutability: "view",
       type: "function",
     },
@@ -259,6 +271,6 @@ const BetWei = {
     },
     { stateMutability: "payable", type: "receive" },
   ],
-};
+}
 
-export default BetWei;
+export default BetWei

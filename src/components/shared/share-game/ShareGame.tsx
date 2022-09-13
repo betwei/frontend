@@ -39,13 +39,13 @@ function ShareGame({ game, className }: IShareGame) {
     <div
       className={`m-auto
             ${styles.share_game__qr}
-            ${((game.status !== '0' && game.status !== '1') || game.owner !== account)
+            ${((game.status !== '0') || game.owner !== account)
           ? 'opacity-5' : ''} ${className}`}>
       {urlImg !== '' && <img
         src={urlImg}
         className='w-9 h-9 md:w-20 md:h-20 m-auto'
         alt={game.description} />}
-      {(url && (game.status === '0' || game.status === '1'))
+      {(url && (game.status === '0'))
         ? <div className='flex gap-1 md:gap-3 justify-center text-xs md:text-sm'>
           <a
             href={url}
